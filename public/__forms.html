@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!--
+  This file exists so Netlify's build-time form detection finds the `contact`
+  form. Next.js's React-rendered forms sometimes aren't detected reliably, so
+  we declare a plain static HTML version here. The actual user-facing form
+  lives in src/components/contact-form.tsx and POSTs form-urlencoded data
+  to "/" with `form-name=contact` — Netlify routes those submissions to this
+  registered form.
+-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Forms</title>
+  </head>
+  <body>
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="text" name="bot-field" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+    </form>
+  </body>
+</html>
