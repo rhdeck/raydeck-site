@@ -42,3 +42,6 @@ next-env.d.ts
 
 # research artifacts
 /.firecrawl/
+
+# Local Netlify folder
+.netlify
