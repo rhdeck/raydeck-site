@@ -1,3 +1,0 @@
-# Essays
-
-Sustained Writing
