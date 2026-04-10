@@ -9,10 +9,44 @@ export function ContactForm({ variant = "default" }: { variant?: "default" | "bo
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: wire up form submission (e.g. to a serverless function or email service)
-    setSubmitted(true);
+    setError(null);
+    setSubmitting(true);
+
+    try {
+      // Netlify Forms: POST form-urlencoded data to "/" with a matching form-name.
+      // The static form in src/app/layout.tsx registers the "contact" form at
+      // build time so Netlify knows to capture these submissions.
+      const body = new URLSearchParams({
+        "form-name": "contact",
+        email,
+        message,
+        "bot-field": "", // honeypot — bots fill this, humans don't
+      });
+
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Submission failed (${response.status})`);
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      console.error("Form submission error:", err);
+      setError(
+        "Something went wrong. Please try again, or email ray@raydeck.com directly."
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const isBottom = variant === "bottom";
@@ -65,11 +99,16 @@ export function ContactForm({ variant = "default" }: { variant?: "default" | "bo
 
             <button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground font-medium px-6 py-3 rounded-lg hover:opacity-90 transition-opacity text-sm"
+              disabled={submitting}
+              className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground font-medium px-6 py-3 rounded-lg hover:opacity-90 transition-opacity text-sm disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Send Me the Details
-              <ArrowRight size={16} />
+              {submitting ? "Sending..." : "Send Me the Details"}
+              {!submitting && <ArrowRight size={16} />}
             </button>
+
+            {error && (
+              <p className="text-xs text-destructive text-center">{error}</p>
+            )}
 
             <p className="text-xs text-muted-foreground/60 text-center">
               No spam. Just a direct reply from Ray.
