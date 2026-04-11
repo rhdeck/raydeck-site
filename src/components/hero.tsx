@@ -130,12 +130,12 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right — Rotating photo */}
+          {/* Right — Rotating photo (capped on mobile so it doesn't dominate) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="relative rounded-2xl overflow-hidden border border-border aspect-square"
+            className="relative rounded-2xl overflow-hidden border border-border aspect-square max-w-xs sm:max-w-sm lg:max-w-none mx-auto w-full"
           >
             <AnimatePresence mode="wait">
               <motion.div
