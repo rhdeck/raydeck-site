@@ -19,7 +19,7 @@ export function ContactForm({ variant = "default" }: { variant?: "default" | "bo
 
     try {
       // Netlify Forms: POST form-urlencoded data to "/" with a matching form-name.
-      // The static form in src/app/layout.tsx registers the "contact" form at
+      // The static form in public/__forms.html registers the "contact" form at
       // build time so Netlify knows to capture these submissions.
       const body = new URLSearchParams({
         "form-name": "contact",
