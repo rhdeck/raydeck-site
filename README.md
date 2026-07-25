@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ray Deck Site
 
-## Getting Started
+The source for [raydeck.com](https://raydeck.com), Ray Deck's public consulting
+site.
 
-First, run the development server:
+## Local development
+
+This project uses Next.js 16, React 19, TypeScript, and npm.
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Before changing Next.js behavior, read the relevant installed guide under
+`node_modules/next/dist/docs/`; this version includes behavior that may differ
+from older Next.js conventions.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Verification
 
-## Learn More
+```bash
+npm run lint
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+The build creates a static export in `out/`. Netlify builds with Node 20 and
+publishes that directory. Pull requests receive Netlify deploy previews; the
+preview for the current head must be exercised before merge.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project canon
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Agent instructions: [`AGENTS.md`](AGENTS.md)
+- Architecture: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+- Decisions: [`docs/DECISIONS.md`](docs/DECISIONS.md)
+- Canary contract: [`docs/canary.md`](docs/canary.md)
+- Strategic state: [`docs/OVERVIEW.md`](docs/OVERVIEW.md)
+- Work queue: [GitHub issues](https://github.com/rhdeck/raydeck-site/issues)
