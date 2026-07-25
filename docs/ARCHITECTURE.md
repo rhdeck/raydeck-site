@@ -36,8 +36,10 @@
 
 1. `public/__forms.html` declares the `contact` form for Netlify's build-time
    scanner.
-2. `src/components/contact-form.tsx` collects `email` and `message`.
-3. The client posts form-urlencoded data to `/` with `form-name=contact`.
+2. `src/components/contact-form.tsx` keeps the `form-name`, `bot-field`,
+   `email`, and `message` fields synchronized with the detector form.
+3. The client posts those fields as form-urlencoded data to `/`, with
+   `form-name=contact`.
 4. Netlify captures the submission and handles the current external
    notification.
 
